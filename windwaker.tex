@@ -34,16 +34,16 @@
 \clearpage
 
 \section{Superswimming}
-Superswimming allows the player to travel huge distances throughout the ocean of Wind Waker. This is done by turning around Link rapidly. Every time he turns around he'll accelerate a bit and will get faster and faster over time, the longer this is done. The game's air meter lasts 30 seconds, so it's important to choose the right moment to stop charging the superswim and releasing it. Charging too long will cause Link to drown before he comes to a stop and vice versa. The sweet spot for releasing is usually after around $\frac{2}{3}$ of the total time that Link can be in the water. This is usually after 20 seconds for most superswims, but not always. Since Link can regain some air by swimming under some docks or getting close to a shore, the total time that Link can be in the water can be increased. Since the player has a lot more time charging, Link will have a lot more speed and thus it takes longer for him to come to a stop, which is why the player should release even earlier, the more air is available.
+Superswimming allows the player to travel huge distances through the ocean of The Wind Waker. This is done by turning Link around rapidly while he is in the water. Every time he turns around, he'll accelerate a bit and will get faster and faster over time, eventually reaching extremely fast speeds. The game's air meter only lasts 30 seconds, so it's important to choose the right moment to stop charging the Superswim and release it. Charging too long will cause Link to drown before he comes to a stop, and vice versa. In order to maximize distance, a Superswim should be released after around $\frac{2}{3}$ of the total time that Link can be in the water before drowning. This means that the optimal release time is after around 20 seconds for most Superswims, but refilling the air meter during a Superswim by getting close to a shore will increase the total time, resulting in a later distance-maximizing release time.
 
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=\textwidth]{SSDistance}
-	\caption{Range of distances possible based on when the player releases the superswim}
+	\caption{Range of distances possible based on when the player releases the Superswim}
 	\label{fig:SSDistance}
 \end{figure}
 
-Figure \ref{fig:SSDistance} shows the range of distances that the player can get when releasing the superswim. Notice how the graph varies greatly even for a certain point in time. This is due to the fact that based on how Link got into the water and how he interacts with the waves, the superswim slightly changes. But that actually only slightly changes the way his speed changes. 
+Figure \ref{fig:SSDistance} shows the range of distances that the player can get after releasing the Superswim. Notice how the graph varies greatly, even if looking at a specific point in time. This is because the way that Link enters the water and how he interacts with the waves slightly affects the progression of the Superswim. However, this only slightly affects the overall trend in Superswim speed. 
 
 \begin{figure}[htp]
 	\subfloat{
@@ -69,7 +69,7 @@ Figure \ref{fig:SSDistance} shows the range of distances that the player can get
     \label{fig:SSFrames}
 \end{figure}
 
-The most important thing to understand, is that Link cycles through his swimming animation, which greatly impacts how fast the superswim will be. This swimming animation is shown in Figure \ref{fig:SSFrames}. The speed will constantly increase while charging, but based on where Link is in this animation cycle, the speed when releasing will differ a lot. This correlates completely with where Link is in his animation cycle though. It is not decided the moment the superswim gets released though. The Superswim's speed is being decided on the speed 2 frames after Link turned around for the last time. What makes all of this harder is the fact that the speed of how fast the swimming animation is being played depends on Link's speed. The faster Link gets, the faster the animation is being played. Aliasing will come into play though. While it takes some seconds for the animation to begin again when Link is slow, the animation will take less than a frame when Link is fast enough. The game runs at 30 frames per second, so the game isn't able to accurately play the swimming animation after it takes less than 1 frame. Once the animation's period is exactly 1 frame, it'll look like it completely came to a stop, since the game will always sample the same part of the animation. Once it's faster than a single frame, it'll even look like it's going backwards until it takes half a frame to complete where it yet again comes to a stop.  
+The most important thing to understand is that Link constantly cycles through his swimming animation. This swimming animation is shown in Figure \ref{fig:SSFrames}. Although the speed of the Superswim will generally increase while charging, the exact speed is also directly affected by where Link is in his animation cycle. This speed is actually determined 2 frames after he turns around for the last time after releasing the Superswim. All of this is made more complicated, however, by the fact that the rate at which Link's swimming animation speed plays depends on Link's speed, meaning that the faster Link gets, the faster his animation is played. Aliasing will also come into play, though. While the animation cycle lasts a few seconds when Link is slow, the entire animation will take less than a frame when Link is fast enough. Since the game runs at 30 frames per second, the swimming animation can only be sampled 30 times per second, so the game isn't able to accurately play the animation when it takes less than 1 frame. Once the animation's period is exactly 1 frame, it'll look like it completely comes to a stop, since the game will always sample the same part of the animation. Once it's faster than a single frame, it'll  look like it's going backwards until it takes half a frame to complete, when it yet again comes to a stop.  
 
 \begin{figure}[!htb]
 	\centering
@@ -78,9 +78,9 @@ The most important thing to understand, is that Link cycles through his swimming
 	\label{fig:SSDerivative}
 \end{figure}
 
-This behaviour can be seen in Figure \ref{fig:SSDerivative}. This graph visualizes the relative change in speed per frame, which is tied to Link's animation. The explained behaviour can be seen in this graph. The speed change is exactly zero whenever his animation takes exactly $1, \frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \ldots, \frac{1}{2^n}$ frames, while the faster the sampled animation is, the more Link's speed changes. The period of this function is about 9.5 seconds. So after around $9.5, 18, 27.5, \ldots, 9.5 n$ seconds Link's animation will come to a stop and Link's speed will not change anymore. This is really useful, since 18 seconds is also around the time where the sweet spot between being too fast and drowning too early is.
+This behaviour can be seen in Figure \ref{fig:SSDerivative}. This graph visualizes the relative change in speed per frame, which is directly related to Link's sampled animation speed. The speed change is exactly zero whenever his animation appears to stop, which is when it takes exactly $1, \frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \ldots, \frac{1}{2^n}$ frames. Also, the faster that the animation speed appears to be, the more Link's speed also changes. The period of this function is about 9.5 seconds, so after around $9.5, 18, 27.5, \ldots, 9.5 n$ seconds, Link's animation will appear to come to a stop, and Link's speed will no longer change. This is really useful, since 18 seconds is also around the time that a Superswim's distance can be maximized.
 
-A good strategy is to release when Link's animation is being played slowly since it's really important where in the animation the superswim is being released. Since the game decides on the speed based on the Link's animation 2 frames after the superswim is released, it's easier to predict where he'll be after 2 frames, when the animation is slow.
+A good strategy is to release while Link's animation is being played slowly. This is because it's easier to predict what the speed will be 2 frames after the Superswim is released based on what is displayed when pausing right before releasing. This is mostly due to there being less variation in the animation speed while it is played slowly.
 
 \section{Event System}
 The Wind Waker uses an event system in order to start and stop cutscenes. This event system ensures that you will never gain control of Link during a cutscene, and that you will regain control once the cutscene is over. However, one of the biggest glitches in The Wind Waker, storage, involves a desync of the Event System, allowing you to pause or cancel many cutscenes. The Wind Waker's event system uses several variables in order to maintain events.
@@ -205,7 +205,7 @@ Whenever you void out, a Spawn ID of -1 is set, which tells the game to use the 
 \subsubsection{Beedle’s Ship}
 When you enter Beedle’s Ship, the game stores the Room ID of the island that you entered Beedle’s Ship on, since the same Beedle room can be shared by multiple different islands. When exiting Beedle, the game sets the Room ID to the stored value and sets the Spawn ID to -2, indicating the exit on Beedle’s Ship.
 
-\subsubsection{Spawn Point not found}
-If the game can't find the spawn point, it sets the Spawn ID to -3 indicating that it couldn't find the spawn point.
+\subsubsection{Spawn Point Not Found}
+If the game can't find the spawn point provided to it by the exit, it sets the Spawn ID to -3.
 
 \end{document}
